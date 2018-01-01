@@ -4,6 +4,8 @@ import YTSearch from 'youtube-api-search';
 
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
+import VideoListItem from './components/video_list_item';
+import VideoDetail from './components/video_details';
 
 
 
@@ -47,15 +49,23 @@ class App extends Component {
 			// this.setState({videos: videos });
 			// ES6 syntax below - if key and property are same variable
 			this.setState({videos});
-			console.log(videos);
+			// console.log(videos);
 		});
 
 	}
 
 	render() {
+
+		// App is parent of VideoList.  We need to get access to videos in App's state.We need to pass info
+		// from parent to child (or App to VideoList).  Declare a property on child. Passing data is referred to as
+		// pass props.  The props will pass as an argument to VideoList (see file)
+
+		// in class-based component, props is available in any method as this.props
 		return (
 			<div>
 				<SearchBar />
+				<VideoList  videos={ this.state.videos }/>
+				<VideoDetail />
 			</div>
 		);
 	}
