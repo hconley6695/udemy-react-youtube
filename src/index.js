@@ -43,12 +43,27 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { videos: [] };
+		this.state = { 
+			videos: [],
+			selectedVideo: null
+		};
+		// need selected video so adding it to state
+		// going to be an object and always passed into <Videodetail>
+		//  in render function.  To update video, we'll pass a callback from 
+		// App into <VideoList>.  Then from VideoList into VideoListItem.
+
+
+
+
+
 		// move this search into constructor function so 
-		YTSearch({ key: API_KEY, term: 'ballet'}, (videos) => {
+		YTSearch({ key: API_KEY, term: 'football'}, (videos) => {
 			// this.setState({videos: videos });
 			// ES6 syntax below - if key and property are same variable
-			this.setState({videos});
+			this.setState({
+				videos: videos,
+				selectedVideo: videos[0]
+			});
 			// console.log(videos);
 		});
 
@@ -64,13 +79,17 @@ class App extends Component {
 		return (
 			<div>
 				<SearchBar />
+				<VideoDetail videos={this.state.selectedVideo}/>
+		
 				<VideoList  videos={ this.state.videos }/>
-				<VideoDetail />
+
 			</div>
 		);
 	}
 
 }
+
+				// formerly <VideoDetail videos={this.state.videos[0]}/>		
 
 // Take this component's generated HTML and put it on the page. (in the DOM)
 // App is a class NOT an instance.  we need to make an instance and THEN pass it to the DOM
