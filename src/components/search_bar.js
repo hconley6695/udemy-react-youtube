@@ -51,9 +51,8 @@ class SearchBar extends Component {
 		// whenever you reference a javascript variable, wrap it in curly braces
 		 return ( 
 
-			 <div>
+			 <div className="search-bar">
 				 <input onChange={this.onInputChange.bind(this) } value={this.state.searchterm}/>
-				 Value is: {this.state.searchterm}
 			 </div>
 
 
