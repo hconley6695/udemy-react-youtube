@@ -56,8 +56,27 @@ class App extends Component {
 
 
 
-		// move this search into constructor function so 
-		YTSearch({ key: API_KEY, term: 'football'}, (videos) => {
+		// // move this search into constructor function  (this is initial placement -> we move this function into the callback)
+		// YTSearch({ key: API_KEY, term: 'football'}, (videos) => {
+		// 	// this.setState({videos: videos });
+
+		// 	this.setState({
+		// 		videos: videos,
+		// 		selectedVideo: videos[0]
+		// 	});
+		// 	// console.log(videos);
+		// });
+
+
+		// INSIDE CONSTRUCTOR, WILL NEED TO PUT IN INITIAL SEARCH.
+
+		this.videoSearch('ballet');
+
+	}
+
+	// this method can now be passed to SearchBar.
+	videoSearch(term) {
+		YTSearch({ key: API_KEY, term: term}, (videos) => {
 			// this.setState({videos: videos });
 
 			this.setState({
@@ -66,7 +85,6 @@ class App extends Component {
 			});
 			// console.log(videos);
 		});
-
 	}
 
 	render() {
@@ -81,9 +99,13 @@ class App extends Component {
 		// We're going to pass another function to VideoList so that someone can click on a new item and have it be the one shown.
 		// onVideoSelect updates App's state with a new video.  We're passing a function that manipulates another component
 
+
+		// In order for new videos to be searched, we are going to place a callback in the searchbar component.
+		//  need to define a callback
+
 		return (
 			<div>
-				<SearchBar />
+				<SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
 				<VideoDetail video={this.state.selectedVideo}/>
 		
 				<VideoList 

@@ -26,23 +26,36 @@ class SearchBar extends Component {
 	}
 
 
-
+// *********************************
 	// Handling events in React requires two steps - 1. Create eventhandler and 2. We pass eventhandler to section that we want to handle events.
 	// event handler - we want to know when input element has its text change
 	// usually do "on" or "handle"; name of element (input); and then event itself (change)
 	// whenever handler occurs, they are always passed an event object; event describes context about event that occurred
 	// we update state in the handler
 	// you MUST BIND THE FUNCTION TO THE ONCHANGE in the render method
-	 onInputChange(event) {
-	// use event to get the value of what was changed
-		console.log(event.target.value);
 
-		// pass an object that sets the new state that we want
-		// to change state, don't use "=";  always use this.setState
 
-		 this.setState({ searchterm: event.target.value });
+	//  onInputChange(event) {
+	// // use event to get the value of what was changed
+	// 	console.log(event.target.value);
 
-	 }
+	// 	// pass an object that sets the new state that we want
+	// 	// to change state, don't use "=";  always use this.setState
+
+	// 	 this.setState({ searchterm: event.target.value });
+
+	//  }
+
+	// This was in the search bar function but not sure what happened?  Isn't working so re-doing the onInputChange method. 
+ 	// <input onChange={this.onInputChange.bind(this) } value={this.state.searchterm}/>
+
+// *********************************
+
+	onInputChange(searchterm) {
+		this.setState({searchterm});
+		this.props.onSearchTermChange(searchterm);
+	}
+
 
 	// define method on the class - must have a render method if class-based!
 	 render() {
@@ -52,7 +65,7 @@ class SearchBar extends Component {
 		 return ( 
 
 			 <div className="search-bar">
-				 <input onChange={this.onInputChange.bind(this) } value={this.state.searchterm}/>
+				 <input onChange={event => this.onInputChange(event.target.value)} value={this.state.searcterm}/>
 			 </div>
 
 
