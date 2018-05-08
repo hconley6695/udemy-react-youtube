@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -103,9 +104,14 @@ class App extends Component {
 		// In order for new videos to be searched, we are going to place a callback in the searchbar component.
 		//  need to define a callback
 
+		// So that the search function doesn't fire so disjointedly, we're using lodash library to make it fire when we want it to. 
+		// debounce is in lodash library; this is now Google Search works!
+
+		const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 300);
+
 		return (
 			<div>
-				<SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
+				<SearchBar onSearchTermChange={videoSearch}/>
 				<VideoDetail video={this.state.selectedVideo}/>
 		
 				<VideoList 
@@ -117,6 +123,8 @@ class App extends Component {
 	}
 
 }
+
+				// formerly <SearchBar onSearchTermChange={term => this.videoSearch(term)}/> this is now in variable videoSearch
 
 				// formerly <VideoDetail videos={this.state.videos[0]}/>		
 				// <VideoDetail videos={this.state.selectedVideo}/>
